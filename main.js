@@ -1,5 +1,6 @@
-const { Client, Events, GatewayIntentBits, Collection, DMChannel, EmbedBuilder} = require('discord.js')
-const { token } = require('./config.json')
+const { Client, GatewayIntentBits, EmbedBuilder} = require('discord.js')
+const { editedChannelId, deletedChannelId } = require('./config.json')
+const { token } = require('./token.json')
 
 const client = new Client({intents: [
         GatewayIntentBits.Guilds,
@@ -33,7 +34,7 @@ client.on('messageDelete', async (message) => {
         .setTimestamp()
         .setFooter({ text: 'Created by Pclip Development' });
 
-    const channel = await client.channels.fetch("1118690723936612535")
+    const channel = await client.channels.fetch(deletedChannelId)
     channel.send({
         content: `DELETE: \`${message.author.username}\` (${message.author.id})`,
         embeds: [msgDeleteEmbed]
@@ -64,7 +65,7 @@ client.on('messageUpdate', async (oldMsg, newMsg) => {
         .setTimestamp()
         .setFooter({ text: 'Created by Pclip Development' });
 
-    const channel = await client.channels.fetch("1118690880421900330")
+    const channel = await client.channels.fetch(editedChannelId)
     channel.send({
         content: `EDIT: \`${oldMsg.author.username}\` (${oldMsg.author.id})`,
         embeds: [msgEditEmbed]
